@@ -100,12 +100,17 @@ window.chrome = function() {
 				return false;
 			});
 
-			$(".closeButton").bind('click', showContent);
+			$(".closeButton").bind('click', onCloseButton);
 
 			initContentLinkHandlers();
 			loadFirstPage();
 			doFocusHack();
 		});
+	}
+	
+	function onCloseButton() {
+		showContent();
+		updateMenu();
 	}
 
 	function loadFirstPage() {
@@ -182,6 +187,7 @@ window.chrome = function() {
 				app.navigateToPage(pageHistory[currentHistoryIndex], {
 					updateHistory: false
 				});
+				updateMenu();
 			}
 		} else {
 			// We're showing one of the overlays; cancel out of it.
@@ -268,11 +274,24 @@ window.chrome = function() {
 		window.scroll(0,0);
 		appHistory.addCurrentPage();
 		toggleForward();
-		updateMenuState(menu_handlers);
+		updateMenu();
 		geo.addShowNearbyLinks();
 		$('#search').removeClass('inProgress');        
 		chrome.hideSpinner();  
 		console.log('currentHistoryIndex '+currentHistoryIndex + ' history length '+pageHistory.length);
+	}
+	
+	function updateMenu() {
+		var savedPagesDB = new Lawnchair({name: "savedPagesDB"}, function() {
+			this.exists(app.getCurrentUrl(), function(exists) {
+				if(!exists) {
+					$("#savePageCmd").attr("disabled", 'false');
+				} else {
+					$("#savePageCmd").attr("disabled", 'true');
+				}
+				updateMenuState(menu_handlers);
+			});
+		});
 	}
 	
 	function doScrollHack(element, leaveInPlace) {
