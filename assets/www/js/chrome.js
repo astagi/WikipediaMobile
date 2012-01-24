@@ -272,9 +272,8 @@ window.chrome = function() {
 	
 	function onPageLoaded() {
 		window.scroll(0,0);
-		appHistory.addCurrentPage();
 		toggleForward();
-		updateMenu();
+		updateMenuAndHistory();
 		geo.addShowNearbyLinks();
 		$('#search').removeClass('inProgress');        
 		chrome.hideSpinner();  
@@ -290,6 +289,22 @@ window.chrome = function() {
 					$("#savePageCmd").attr("disabled", 'true');
 				}
 				updateMenuState(menu_handlers);
+			});
+		});
+	}
+	
+	function updateMenuAndHistory() {
+		//TODO this ugly method have to be improvement, it's just a workaround
+		//to avoid some problem with lawnchair
+		var savedPagesDB = new Lawnchair({name: "savedPagesDB"}, function() {
+			this.exists(app.getCurrentUrl(), function(exists) {
+				if(!exists) {
+					$("#savePageCmd").attr("disabled", 'false');
+				} else {
+					$("#savePageCmd").attr("disabled", 'true');
+				}
+				updateMenuState(menu_handlers);
+				appHistory.addCurrentPage();
 			});
 		});
 	}
