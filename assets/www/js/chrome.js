@@ -109,6 +109,7 @@ window.chrome = function() {
 	}
 
 	function loadFirstPage() {
+		$('#searchParam').attr("disabled", "true");
 		chrome.showSpinner();
 
 		// restore browsing to last visited page
@@ -170,6 +171,7 @@ window.chrome = function() {
 		if ($('#content').css('display') == "block") {
 			// We're showing the main view
 			currentHistoryIndex -= 1;
+			$('#searchParam').attr("disabled", "true");
 			$('#search').addClass('inProgress');
 			// Jumping through history is unsafe with the current urlCache system
 			// sometimes we get loaded without the fixups, and everything esplodes.
@@ -190,6 +192,7 @@ window.chrome = function() {
 	}
 
 	function goForward() {
+		$('#searchParam').attr("disabled", "true");
 		$('#search').addClass('inProgress');
 		if (currentHistoryIndex < pageHistory.length) {
 			app.navigateToPage(pageHistory[++currentHistoryIndex], {
@@ -271,6 +274,7 @@ window.chrome = function() {
 		toggleForward();
 		updateMenuState(menu_handlers);
 		geo.addShowNearbyLinks();
+		$('#searchParam').removeAttr('disabled');
 		$('#search').removeClass('inProgress');        
 		chrome.hideSpinner();  
 		console.log('currentHistoryIndex '+currentHistoryIndex + ' history length '+pageHistory.length);

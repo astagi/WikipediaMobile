@@ -91,6 +91,7 @@ window.app = function() {
 	function navigateToPage(url, options) {
 		var options = $.extend({cache: false, updateHistory: true}, options || {});
 		$('#searchParam').val('');
+		$('#searchParam').attr("disabled", "true");
 		$('#search').addClass('inProgress');
 		chrome.showSpinner();
 		
