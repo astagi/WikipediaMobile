@@ -118,7 +118,7 @@ window.chrome = function() {
 
 	function loadFirstPage() {
 		chrome.showSpinner();
-
+		new Lawnchair(function(){});
 		// restore browsing to last visited page
 		var historyDB = new Lawnchair({name:"historyDB"}, function() {
 			this.all(function(history){
