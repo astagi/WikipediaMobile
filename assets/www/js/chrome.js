@@ -13,6 +13,8 @@ window.chrome = function() {
 
 	// List of functions to be called on a per-platform basis before initialize
 	var platform_initializers = [];
+	var currentThread = 0;
+	
 	function addPlatformInitializer(fun) {
 		platform_initializers.push(fun);
 	}
@@ -97,9 +99,11 @@ window.chrome = function() {
 				window.search.performSearch($("#searchParam").val(), false);
 				return false;
 			}).bind('keypress', function() {
+				currentThread++;
+				var currentThreadLoc = currentThread;
 				// Needed because .val doesn't seem to update instantly
 				setTimeout(function() { 
-					window.search.performSearch($("#searchParam").val(), true); 
+					window.search.performSearch($("#searchParam").val(), true, currentThreadLoc); 
 				}, 5);
 			});
 			$("#clearSearch").bind('touchstart', function() {
@@ -114,6 +118,10 @@ window.chrome = function() {
 			doFocusHack();
 		});
 		
+	}
+	
+	function getLastThreadId() {
+		return (currentThread - 1);
 	}
 
 	function loadFirstPage() {
@@ -302,6 +310,7 @@ window.chrome = function() {
 		loadFirstPage: loadFirstPage,
 		showSpinner: showSpinner,
 		hideSpinner: hideSpinner,
+		getLastThreadId: getLastThreadId,
 		showNotification: showNotification,
 		goBack: goBack,
 		goForward: goForward,

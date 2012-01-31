@@ -1,5 +1,5 @@
 window.search = function() {
-	function performSearch(term, isSuggestion) {
+	function performSearch(term, isSuggestion, currentThread) {
 		if($('#search').hasClass('inProgress')) {
 			network.stopCurrentRequest();
 			$('#search').removeClass('inProgress');
@@ -19,7 +19,7 @@ window.search = function() {
 				app.navigateToPage(url);
 				return;
 			}
-			getSearchResults( term );
+			getSearchResults( term , currentThread);
 		} else {
 			if(!isSuggestion)
 				chrome.showNoConnectionMessage();
@@ -27,10 +27,11 @@ window.search = function() {
 		}
 	}
 
-	function getDidYouMeanResults(results) {
+	function getDidYouMeanResults(results, currentThread) {
 		// perform did you mean search
 		console.log( "Performing 'did you mean' search for", results[0] );
-		var requestUrl = app.baseURL + "/w/api.php";        
+		var requestUrl = app.baseURL + "/w/api.php";      
+		var idThread = currentThread;
 		$.ajax({
    			type: 'GET',
 			url: requestUrl,
@@ -41,11 +42,14 @@ window.search = function() {
        			srinfo: 'suggestion',
 				format: 'json'
        		},
+			invokedata: {
+			    threadid: idThread,
+			},
        		success: function(data) {
 				var suggestion_results = data;
 				var suggestion = getSuggestionFromSuggestionResults( suggestion_results );
 				if ( suggestion ) {
-					getSearchResults( suggestion, 'true' );
+					getSearchResults( suggestion, this.invokedata.threadid , 'true' );
 				}
 			}
 		});
@@ -62,9 +66,12 @@ window.search = function() {
 		}
 	}
 	
-	function getSearchResults(term, didyoumean) {
+	function getSearchResults(term, currentThread, didyoumean) {
 		console.log( 'Getting search results for term:', term );
 		var requestUrl = app.baseURL + "/w/api.php";
+		var idThread = currentThread;
+		if (chrome.getLastThreadId() > idThread)
+			return;
 		$.ajax({
 			type: 'GET',
 			url: requestUrl,
@@ -73,10 +80,16 @@ window.search = function() {
 				search: term,
 				format: 'json'
 			},
+			invokedata: {
+			    threadid: idThread,
+			},
 			success: function(results) {
+				if (chrome.getLastThreadId() > this.invokedata.threadid)
+					return;
+
 				if ( results[1].length === 0 ) { 
 					console.log( "No results for", term );
-					getDidYouMeanResults( results );
+					getDidYouMeanResults( results, this.invokedata.threadid );
 				} else {
 					if ( typeof didyoumean == 'undefined' ) {
 						didyoumean = false;
