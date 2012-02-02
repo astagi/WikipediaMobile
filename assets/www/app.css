@@ -136,7 +136,6 @@ header
 	text-align: left;
 	postion: relative;
 	border-bottom: solid 1px #999999;
-	display: block;
 }
 
 .listItem.active, .deleteButton.active {
@@ -150,7 +149,6 @@ header
 	height: 24px;
 	left: 8px;
 	position: absolute;
-	top: 10px;
 	width: 24px;
 	display: block;
 }
