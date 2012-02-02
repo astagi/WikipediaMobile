@@ -115,20 +115,27 @@ header
 
 .listItemContainer
 {
-	display: -webkit-box;
-    -webkit-box-orient: horizontal;
-	whitespace: no-wrap;
-	border-bottom:1px solid #ddd;
-	width:100%;
-	position: relative;
+	-webkit-appearance: none;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	outline-style: none;
+	outline-width: initial;
+	outline-color: initial;
+	height: 2.4em;
+	display: block;
 }
 
 .listItem {
-	padding-top:12px;
-	padding-bottom:12px;
-	height: 22px;
-	line-height: 22px;
-	width: 100%;
+	color: black;
+	color: WindowText;
+	margin: 0;
+	line-height: 1.8em;
+	padding: 0.01em 0.25em;
+	text-align: left;
+	postion: relative;
+	border-bottom: solid 1px #999999;
 	display: block;
 }
 
@@ -145,6 +152,7 @@ header
 	position: absolute;
 	top: 10px;
 	width: 24px;
+	display: block;
 }
 
 .iconHistory {
