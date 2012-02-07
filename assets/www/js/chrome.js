@@ -157,6 +157,7 @@ window.chrome = function() {
 		$('#langlinks').hide();
 		$('#nearby-overlay').hide();
 		$('html').removeClass('overlay-open');
+		$('#divider').hide();
 	}
 
 	function showContent() {
@@ -171,6 +172,7 @@ window.chrome = function() {
 			$('#content').hide();
 		} else {
 			$('html').addClass('overlay-open');
+			$('#divider').show();
 		}
 	}
 

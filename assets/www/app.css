@@ -575,5 +575,15 @@ header
 	.goodscroll #map {
 		bottom: 0px; /* no toolbar */
 	}
+	
+	.goodscroll #divider {
+		width: 1px;
+		float: left;
+		margin-top: 5px;
+		margin-bottom: 5px;
+		height: 100%;
+		border-left:1px solid #ddd;
+		display: none;
+	}
 }
 
