@@ -427,7 +427,13 @@ header
 	font-size: 10px;
 }
 
+#about-contributors {
+	font-size: 12px;
+}
 
+#about-software {
+	font-size: 12px;
+}
 
 /* Web, iOS menu */
 #menu {
