@@ -37,8 +37,7 @@ function writeCredits(data) {
 	$("#about-software").html(data[1]);
 }
 
-function urlifyText(text)
-{
+function urlifyText(text) {
     var matches = text.match(/http(s)?:\/\/[A-Za-z0-9\-\+&@#\/%?=~_|!:,\.;]+/g);
     for(var i = 0 ; i < matches.length ; i++)
         text = text.replace(matches[i], "<a href='" + matches[i] + "'>" + matches[i] + "</a>" );
@@ -55,7 +54,7 @@ function getFile(filepath, success_cb) {
 				success_cb(data);
 			},
 			error: function(err) {
-				console.log("ERROR!" + JSON.stringify(err));
+				console.log("ERROR! " + err);
 			}
 		});
 	};
