@@ -50,7 +50,7 @@ function getFile(filepath, success_cb) {
 	var doRequest = function() {
 		network.makeRequest({
    			type: 'GET',
-			url: 'file:///android_asset/www/' + filepath,
+			url: getAssetsPath() + filepath,
 			success: function(data) {
 				success_cb(data);
 			},

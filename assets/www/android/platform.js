@@ -135,3 +135,7 @@ app.setCaching = function(enabled, success) {
 window.preferencesDB.addOnSet(function(id, value) {
 	window.plugins.preferences.set(id, value, function(){}, function(){});
 });
+
+function getAssetsPath() {
+	return 'file:///android_asset/www/';
+}
