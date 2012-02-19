@@ -417,6 +417,10 @@ header
 	text-align: center;
 }
 
+#about-page-overlay a{
+	color: DarkGrey;
+}
+
 #about-version {
 	font-size: 30px;
 	color: Black;
