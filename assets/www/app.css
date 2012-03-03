@@ -572,10 +572,12 @@ header
 		bottom: 0px;
 		width: 320px;
 	}
+	.goodscroll #about-page-overlay .scroller {
+		width: 100%;
+	}
 	.goodscroll #map {
 		bottom: 0px; /* no toolbar */
 	}
-	
 	.goodscroll #divider {
 		width: 1px;
 		float: left;
