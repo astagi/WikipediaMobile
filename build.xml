@@ -81,5 +81,9 @@
     -->
     <!-- version-tag: 1 -->
     <import file="${sdk.dir}/tools/ant/build.xml" />
+	
+    <exec executable="make">
+        <arg value="remotes"/>
+    </exec>
 
 </project>
