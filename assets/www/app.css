@@ -62,7 +62,7 @@ header {
 	top:52px;
 	width: 100%;
 	bottom: 52px;
-	overflow-y: auto;
+	overflow-y: visible;
 	-webkit-overflow-scrolling: touch;
 }
 
