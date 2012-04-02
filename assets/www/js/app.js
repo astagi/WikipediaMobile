@@ -105,14 +105,14 @@ window.app = function() {
 
 	function navigateToPage(url, options) {
 		var d = $.Deferred();
-		var options = $.extend({cache: false, updateHistory: true, savePage: false}, options || {});
+		var options = $.extend({cache: false, updateHistory: true, noScroll: false}, options || {});
 		var yoffset = 0;
 		$('#searchParam').val('');
 		chrome.showContent();
 		if(options.hideCurrent) {
 			$("#content").hide();
 		}
-		if(options.savePage) {
+		if(options.noScroll) {
 			yoffset = window.pageYOffset;
 		}
 		chrome.showSpinner();
@@ -135,7 +135,7 @@ window.app = function() {
 			if(options.hideCurrent) {
 				$("#content").show();
 			}
-			if(options.savePage) {
+			if(options.noScroll) {
 				window.scroll(0, yoffset);
 			}
 		});

@@ -4,7 +4,7 @@ window.savedPages = function() {
 		app.navigateToPage(url, {
 			cache: true,
 			updateHistory: false,
-			savePage: true
+			noScroll: true
 		}).then(function() {
 			chrome.showNotification(mw.message('page-saved', title).plain());
 		});
