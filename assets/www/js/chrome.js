@@ -317,7 +317,7 @@ window.chrome = function() {
 		$('.section_heading button').remove();
 		// setup default MobileFrontend behaviour (including toggle)
 		MobileFrontend.init();
-		window.scroll(0,0);
+		chrome.doScrollHack(window);
 		appHistory.addCurrentPage();
 		toggleMoveActions();
 		geo.addShowNearbyLinks();

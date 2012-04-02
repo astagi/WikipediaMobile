@@ -105,11 +105,15 @@ window.app = function() {
 
 	function navigateToPage(url, options) {
 		var d = $.Deferred();
-		var options = $.extend({cache: false, updateHistory: true}, options || {});
+		var options = $.extend({cache: false, updateHistory: true, savePage: false}, options || {});
+		var yoffset = 0;
 		$('#searchParam').val('');
 		chrome.showContent();
 		if(options.hideCurrent) {
 			$("#content").hide();
+		}
+		if(options.savePage) {
+			yoffset = window.pageYOffset;
 		}
 		chrome.showSpinner();
 
@@ -130,6 +134,9 @@ window.app = function() {
 			setMenuItemState('read-in', true);
 			if(options.hideCurrent) {
 				$("#content").show();
+			}
+			if(options.savePage) {
+				window.scroll(0, yoffset);
 			}
 		});
 		return d;
