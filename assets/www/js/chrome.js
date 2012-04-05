@@ -176,6 +176,9 @@ window.chrome = function() {
 
 	function showContent() {
 		hideOverlays();
+		if(!app.isOnError()) {
+			setPageActionsState(true);
+		}
 		$('#mainHeader').show();
 		$('#content').show();
 	}
@@ -184,6 +187,7 @@ window.chrome = function() {
 		$('#mainHeader').hide();
 		if(!isTwoColumnView()) {
 			$('#content').hide();
+			setPageActionsState(false);
 		} else {
 			$('html').addClass('overlay-open');
 		}

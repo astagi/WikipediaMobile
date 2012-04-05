@@ -1,5 +1,6 @@
 window.app = function() {
 
+	var is_on_error = false;
 	function loadCachedPage (url, noScroll) {
 		var d = $.Deferred();
 		var replaceRes = function() {
@@ -40,6 +41,7 @@ window.app = function() {
 				success: function(data) {
 						chrome.renderHtml(data, origUrl, noScroll);
 						chrome.onPageLoaded(noScroll);
+						is_on_error = false;
 						d.resolve();
 					},
 				error: function(xhr) {
@@ -51,6 +53,7 @@ window.app = function() {
 					languageLinks.clearLanguages();
 					setMenuItemState('read-in', false);
 					setPageActionsState(false);
+					is_on_error = true;
 				}
 			});
 		};
@@ -126,7 +129,7 @@ window.app = function() {
 			console.log("navigating to " + url);
 			// Enable change language - might've been disabled in a prior error page
 			console.log('enabling language');
-			setPageActionsState(true);;
+			setPageActionsState(true);
 			setMenuItemState('read-in', true);
 			if(options.hideCurrent) {
 				$("#content").show();
@@ -146,6 +149,10 @@ window.app = function() {
 			title = unescaped.replace(/_/g, ' ');
 		return title;
 	}
+	
+	function isOnError() {
+		return is_on_error;
+	}
 
 	var exports = {
 		setFontSize: setFontSize,
@@ -157,7 +164,8 @@ window.app = function() {
 		baseUrlForLanguage: baseUrlForLanguage,
 		setCaching: setCaching,
 		loadPage: loadPage,
-		loadCachedPage: loadCachedPage
+		loadCachedPage: loadCachedPage,
+		isOnError: isOnError
 	};
 
 	return exports;

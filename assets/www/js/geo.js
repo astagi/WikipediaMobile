@@ -16,6 +16,7 @@ window.geo = function() {
 		chrome.hideContent();
 		$("#nearby-overlay").localize().show();
 		chrome.doFocusHack();
+		setPageActionsState(false);
 
 		if (!geo.map) {
 			// Disable webkit 3d CSS transformations for tile positioning
